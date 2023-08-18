@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试API页面</title>
+    <script>
+        function sendRequest() {
+            var apiUrl = document.getElementById('api_url').value;
+            var httpMethod = document.getElementById('http_method').value;
+            var requestData = document.getElementById('request_data').value;
+
+            // 创建XMLHttpRequest对象
+            var xhr = new XMLHttpRequest();
+
+            // 设置响应处理函数
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 显示API响应
+                    document.getElementById('response').innerHTML = xhr.responseText;
+                }
+            };
+
+            // 发送API请求
+            xhr.open(httpMethod, apiUrl, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(requestData);
+        }
+    </script>
+</head>
+<body>
+    <h1>测试API</h1>
+
+    <label for="api_url">API地址:</label>
+    <input type="text" id="api_url" placeholder="输入API地址" required><br><br>
+
+    <label for="http_method">请求方式:</label>
+    <select id="http_method">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+    </select><br><br>
+
+    <label for="request_data">请求数据(JSON格式):</label><br>
+    <textarea id="request_data" rows="4" cols="50"></textarea><br><br>
+
+    <button onclick="sendRequest()">发送请求</button>
+
+    <h2>API响应:</h2>
+    <pre id="response"></pre>
+</body>
+</html>
